@@ -4,16 +4,10 @@ A full-stack AI-powered mock interview platform where candidates have a real, dy
 
 ---
 
-## Live Demo
-
-**Deployed URL:** [your-app.vercel.app](https://your-app.vercel.app)  
-**Loom Walkthrough:** [loom.com/share/your-link](https://loom.com/share/your-link)
-
----
-
 ## Local Setup (5 commands)
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm (`npm install -g pnpm`)
 - PostgreSQL database (or a free [Neon](https://neon.tech) account)
@@ -25,36 +19,45 @@ A full-stack AI-powered mock interview platform where candidates have a real, dy
 ### Steps
 
 **1. Clone and install**
+
 ```bash
-git clone https://github.com/your-username/mock-interview-platform.git
-cd mock-interview-platform && pnpm install
+git clone https://github.com/Sujallukhi04/InterviewAi.git
+cd InterviewAi && pnpm install
 ```
 
 **2. Configure environment variables**
+
 ```bash
 cp .env.example .env
 ```
+
 Fill in all values in `.env` (see Environment Variables section below).
 
 **3. Run database migrations**
+
 ```bash
 npx prisma db push
 ```
 
 **4. Start the development server**
+
 ```bash
 pnpm dev
 ```
 
 **5. Expose local server for Vapi webhook (new terminal)**
 If using **localtunnel**:
+
 ```bash
 npx localtunnel --port 3000 --subdomain your-chosen-subdomain
 ```
+
 If using **ngrok**:
+
 ```bash
 ngrok http 3000
 ```
+
 Then set the `APP_URL` in `.env` to match your tunnel URL.
 
 App is now running at `http://localhost:3000`
@@ -89,14 +92,14 @@ APP_URL="http://localhost:3000"
 
 ### Where to get each key
 
-| Variable | Where to get it |
-|---|---|
-| DATABASE_URL | [neon.tech](https://neon.tech) → New Project → Connection String |
-| AUTH_SECRET | Run `openssl rand -base64 32` in terminal |
-| GOOGLE_CLIENT_ID/SECRET | [console.cloud.google.com](https://console.cloud.google.com) → APIs → Credentials → OAuth 2.0 |
-| NEXT_PUBLIC_VAPI_PUBLIC_KEY | [vapi.ai](https://vapi.ai) → Dashboard → API Keys |
-| VAPI_PRIVATE_KEY | Same as above |
-| GROQ_API_KEY | [console.groq.com](https://console.groq.com) → API Keys |
+| Variable                    | Where to get it                                                                               |
+| --------------------------- | --------------------------------------------------------------------------------------------- |
+| DATABASE_URL                | [neon.tech](https://neon.tech) → New Project → Connection String                              |
+| AUTH_SECRET                 | Run `openssl rand -base64 32` in terminal                                                     |
+| GOOGLE_CLIENT_ID/SECRET     | [console.cloud.google.com](https://console.cloud.google.com) → APIs → Credentials → OAuth 2.0 |
+| NEXT_PUBLIC_VAPI_PUBLIC_KEY | [vapi.ai](https://vapi.ai) → Dashboard → API Keys                                             |
+| VAPI_PRIVATE_KEY            | Same as above                                                                                 |
+| GROQ_API_KEY                | [console.groq.com](https://console.groq.com) → API Keys                                       |
 
 ---
 
@@ -126,27 +129,29 @@ APP_URL="http://localhost:3000"
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16 (App Router, Turbopack) + TypeScript |
-| Styling | Tailwind CSS v4 + shadcn/ui |
-| Database | PostgreSQL (Neon) + Prisma ORM |
-| Auth | Google OAuth via NextAuth.js (v5) |
-| Voice AI | Vapi (STT + TTS orchestration) |
-| LLM | Groq / Llama 3.3 70B (conversation engine) |
-| Deployment | Vercel |
+| Layer      | Technology                                      |
+| ---------- | ----------------------------------------------- |
+| Framework  | Next.js 16 (App Router, Turbopack) + TypeScript |
+| Styling    | Tailwind CSS v4 + shadcn/ui                     |
+| Database   | PostgreSQL (Neon) + Prisma ORM                  |
+| Auth       | Google OAuth via NextAuth.js (v5)               |
+| Voice AI   | Vapi (STT + TTS orchestration)                  |
+| LLM        | Groq / Llama 3.3 70B (conversation engine)      |
+| Deployment | Vercel                                          |
 
 ---
 
 ## Features
 
 ### Core
+
 - **Real dynamic voice interviews** — AI listens, responds to what you actually said, asks follow-ups, probes weak answers, acknowledges strong ones
 - **4 interview types** — Behavioral, Technical, System Design, HR / Culture Fit — each with a different AI persona and question strategy
 - **Post-session feedback report** — overall score + breakdown by Communication, Depth, Structure, Confidence with specific examples from your transcript
 - **Google OAuth** — one-click sign in
 
 ### Dashboard
+
 - Interview history table with date filter, type filter, status filter
 - Pagination (10 sessions per page)
 - Performance over time line chart
@@ -154,6 +159,7 @@ APP_URL="http://localhost:3000"
 - Bulk delete sessions
 
 ### Session Features
+
 - Live transcript during the call
 - Real-time message persistence
 - Keyboard shortcuts (Space to mute, Esc to end)
@@ -161,12 +167,14 @@ APP_URL="http://localhost:3000"
 - Retry failed/expired sessions
 
 ### Post-Session
+
 - Detailed feedback report with score breakdown
 - Full conversation transcript viewer
 - Interview Coach — AI chat that answers questions about your specific performance based on your actual transcript
 - Share-ready report page
 
 ### Profile
+
 - Edit name, target role, experience level
 - Stats overview (total interviews, average score, completed count)
 
@@ -243,14 +251,15 @@ The key architectural decision: **Vapi handles STT + TTS, your backend handles a
 
 ## Cost Analysis
 
-| Service | Free Tier | Estimated Cost per Interview |
-|---|---|---|
-| Vapi | 10 free minutes/month | ~$0.05/min after free tier |
-| Groq | 14,400 requests/day free | $0.00 on free tier |
-| Neon | 0.5 GB storage free | $0.00 for development |
-| Vercel | Hobby tier free | $0.00 |
+| Service | Free Tier                | Estimated Cost per Interview |
+| ------- | ------------------------ | ---------------------------- |
+| Vapi    | 10 free minutes/month    | ~$0.05/min after free tier   |
+| Groq    | 14,400 requests/day free | $0.00 on free tier           |
+| Neon    | 0.5 GB storage free      | $0.00 for development        |
+| Vercel  | Hobby tier free          | $0.00                        |
 
 **Estimated cost for a 10-minute interview session:**
+
 - Vapi: ~$0.50 (10 min × $0.05/min, after free tier)
 - Groq: $0.00 (well within free tier)
 - Total per session: ~$0.50 at scale
